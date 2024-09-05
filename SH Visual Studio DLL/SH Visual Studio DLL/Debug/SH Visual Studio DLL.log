@@ -1,0 +1,8 @@
+﻿  dllmain.cpp
+D:\Edit\Kodlama Projeler\SH Visual Studio DLL\SH Visual Studio DLL\AnaFonksiyon.h(45,23): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
+  ('/dllmain.cpp' kaynak dosyası derleniyor)
+  
+D:\Edit\Kodlama Projeler\SH Visual Studio DLL\SH Visual Studio DLL\AnaFonksiyon.h(40,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+  ('/dllmain.cpp' kaynak dosyası derleniyor)
+  
+  SH Visual Studio DLL.vcxproj -> D:\Edit\Kodlama Projeler\SH Visual Studio DLL\Debug\SH Visual Studio DLL.dll
