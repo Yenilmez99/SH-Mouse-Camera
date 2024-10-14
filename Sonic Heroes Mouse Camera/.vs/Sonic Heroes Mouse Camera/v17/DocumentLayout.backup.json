@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Edit\\Kodlama Projeler\\Sonic Heroes Mouse Camera\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E5916921-5C3E-4F26-8533-D6F9FCC7E435}|Sonic Heroes Mouse Camera\\Sonic Heroes Mouse Camera.vcxproj|D:\\Edit\\Kodlama Projeler\\Sonic Heroes Mouse Camera\\Sonic Heroes Mouse Camera\\dllmain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E5916921-5C3E-4F26-8533-D6F9FCC7E435}|Sonic Heroes Mouse Camera\\Sonic Heroes Mouse Camera.vcxproj|solutionrelative:Sonic Heroes Mouse Camera\\dllmain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "dllmain.cpp",
+              "DocumentMoniker": "D:\\Edit\\Kodlama Projeler\\Sonic Heroes Mouse Camera\\Sonic Heroes Mouse Camera\\dllmain.cpp",
+              "RelativeDocumentMoniker": "Sonic Heroes Mouse Camera\\dllmain.cpp",
+              "ToolTip": "D:\\Edit\\Kodlama Projeler\\Sonic Heroes Mouse Camera\\Sonic Heroes Mouse Camera\\dllmain.cpp",
+              "RelativeToolTip": "Sonic Heroes Mouse Camera\\dllmain.cpp",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAAAHwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-14T07:33:05.181Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

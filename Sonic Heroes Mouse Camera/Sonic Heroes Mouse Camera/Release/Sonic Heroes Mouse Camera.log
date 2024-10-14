@@ -1,0 +1,17 @@
+﻿  dllmain.cpp
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(42,23): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(37,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(98,37): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(101,38): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(106,40): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(107,40): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(108,40): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(109,59): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(110,61): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
+D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(78,11): warning C4101: 'UseCameraFreezeAdres': yerel değişken başvurusu kaldırıldı
+  Kod üretiliyor
+  2 of 97 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Kodun üretilmesi tamamlandı
+  Sonic Heroes Mouse Camera.vcxproj -> D:\Edit\Kodlama Projeler\Sonic Heroes Mouse Camera\Release\Sonic Heroes Mouse Camera.dll
