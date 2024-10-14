@@ -4,6 +4,8 @@ This mod requires MS VC 2015-2022 version (both x64 and x86)
 
 MSVC link: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
+Releases is Reloaded 2 Mod Loader File
+
 It is recommended that the resolution be 1024+. This is because the cursor is set to 800x600 when using the mode.
 
 It is activated automatically when entering any stage.
