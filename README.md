@@ -14,6 +14,6 @@ There are some animation bugs due to the camera being assigned to the mouse. Hol
 
 Keys:
 
-N = As long as the button is held down, the Camera Returns to the Original Camera Layout of Sonic Heroes. When any animation bug occurs, press and hold it until the problem is resolved. (for example, when you start the metal sonic stage, the metal sonic bug will remain and the game will not start. Holding the N key for about 10 seconds fixes the problem)
+N = As long as the button is held down, the Camera Returns to the Original Camera Layout of Sonic Heroes. When any animation bug occurs, press and hold it until the problem is resolved. (for example, when you start the metal sonic stage, the metal sonic bug will remain and the game will not start or power characters can sometimes shake the screen with their hits and the screen always remains shaken. Holding the N key for about 10 seconds fixes the problem)
 
 U = Forcefully terminates the DLL File when an unresolved game bug occurs. The camera may freeze in mid-air.
