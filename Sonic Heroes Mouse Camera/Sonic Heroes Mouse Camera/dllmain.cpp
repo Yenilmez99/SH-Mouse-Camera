@@ -47,17 +47,42 @@ DWORD GetPointerAddress(HWND hwnd, DWORD gameBaseAddr, DWORD address, std::vecto
     return pointeraddress += offsets.at(offsets.size() - 1);
 }
 
+std::vector<uint8_t> AssemblyNopConverter(HANDLE HandleH, std::vector<int> Vectors, std::vector<uint8_t> OldHexValues) {
+    uint8_t NopOP = 0x90;
+    uint8_t OldHexValue = 0;
+    for (uint8_t i = 0; i < Vectors.size(); i++) {
+        ReadProcessMemory(HandleH, (PBYTE*)Vectors[i], &OldHexValue, sizeof(uint8_t), 0);
+        OldHexValues.push_back(OldHexValue);
+        WriteProcessMemory(HandleH, (PBYTE*)Vectors[i], &NopOP, sizeof(uint8_t), 0);
+    }
+    return OldHexValues;
+}
+void AssemblyNopRepair(HANDLE HandleH, std::vector<int> Vectors, std::vector<uint8_t> RepairHexValue) {
+    for (short i = 0; i < Vectors.size(); i++) {
+        WriteProcessMemory(HandleH, (PBYTE*)Vectors[i], &RepairHexValue[i], sizeof(uint8_t), 0);
+    }
+}
+
 DWORD WINAPI MainCore(HMODULE hModule) {
 
-    bool StageOpen = 1, OnOff = 1, CameraFreeze = 0, GamePause = 0;
+    bool StageOpen = 1, OnOff = 1, GamePause = 0;
 
     short int CameraRotation[2] = { 0,0 };
     int MousePosDifference[2] = { 0,0 };
 
     float CharacterPos[3] = { 0.0f,0.0f,0.0f }, CameraPosition[3] = { 0.0f,0.0f,0.0f };
-    float Sensivity = 10.0f, Radius = 90.0f;
+    float Radius = 90.0f;
+
+    std::vector<int> Addresses = { 0x006207DB,0x006207DC ,0x006207E3 ,0x006207E4 ,0x006207E5 ,0x006207EC ,
+                                   0x006207ED ,0x006207EE ,0x00620809 ,0x0062080A ,0x0062080B ,0x00620800 ,
+                                   0x00620801 ,0x00620802 ,0x006207F8 ,0x006207F9 };
+    std::vector<uint8_t> OldHexValues;
 
     POINT MousePosition;
+    XINPUT_STATE state;
+    DWORD dwResult;
+    SHORT rightThumbX;
+    SHORT rightThumbY;
 
     HWND hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)");
 
@@ -83,12 +108,35 @@ DWORD WINAPI MainCore(HMODULE hModule) {
 
     SetCursorPos(800, 600);
 
+    std::ifstream File("Y99 Mods Config File.txt");
+    std::string Line;
+    float Sensivity = 10.0f;
+    if (!File.is_open())
+        Sensivity = 10.0f;
+    else {
+        for (int i = 0; i < 7; i++) {
+            std::getline(File, Line);
+            if (i == 6) {
+                std::stringstream ss(Line);
+                std::string Key;
+                ss >> Key >> Sensivity;
+            }
+        }
+        if (Sensivity <= 1000.0f && Sensivity > 0.0f) {
+
+        }
+        else
+            Sensivity = 10.0f;
+    }
+    File.close();
+
+    // Camera Freeze
+    OldHexValues = AssemblyNopConverter(HandleSonicHeroes, Addresses, OldHexValues);
+
     while (hwnd_SonicHeroesTM != 0) {
-        // Camera Freeze
-        WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x00A69880, &CameraFreeze, sizeof(bool), 0);
 
         // Stage and Window ON
-        if (StageOpen == 0 && GamePause == 0 && OnOff == 1 && hwnd_SonicHeroesTM == GetForegroundWindow()) {
+        if (!StageOpen && !GamePause && OnOff && hwnd_SonicHeroesTM == GetForegroundWindow()) {
             GetCursorPos(&MousePosition);
             MousePosDifference[0] += MousePosition.x - 800;
             MousePosDifference[1] += MousePosition.y - 600;
@@ -102,6 +150,49 @@ DWORD WINAPI MainCore(HMODULE hModule) {
 
             if (MousePosDifference[1] * Sensivity < -16384)
                 MousePosDifference[1] = -16384 / Sensivity;
+
+            dwResult = XInputGetState(0, &state);
+
+            if (dwResult == ERROR_SUCCESS) {
+                rightThumbX = state.Gamepad.sThumbRX;
+                rightThumbY = state.Gamepad.sThumbRY;
+
+                if (rightThumbX > 100 && rightThumbX < 8192)
+                    MousePosDifference[0] += 10;
+                if (rightThumbX >= 8192 && rightThumbX < 16384)
+                    MousePosDifference[0] += 20;
+                if (rightThumbX >= 16384 && rightThumbX < 24576)
+                    MousePosDifference[0] += 35;
+                if (rightThumbX >= 24576 && rightThumbX < 32768)
+                    MousePosDifference[0] += 50;
+
+                if (rightThumbX < -100 && rightThumbX > -8192)
+                    MousePosDifference[0] -= 10;
+                if (rightThumbX <= -8192 && rightThumbX > -16384)
+                    MousePosDifference[0] -= 20;
+                if (rightThumbX <= -16384 && rightThumbX > -24576)
+                    MousePosDifference[0] -= 35;
+                if (rightThumbX <= -24576 && rightThumbX >= -32768)
+                    MousePosDifference[0] -= 50;
+
+                if (rightThumbY > 100 && rightThumbY < 8192)
+                    MousePosDifference[1] -= 10;
+                if (rightThumbY >= 8192 && rightThumbY < 16384)
+                    MousePosDifference[1] -= 20;
+                if (rightThumbY >= 16384 && rightThumbY < 24576)
+                    MousePosDifference[1] -= 35;
+                if (rightThumbY >= 24576 && rightThumbY < 32768)
+                    MousePosDifference[1] -= 50;
+
+                if (rightThumbY < -100 && rightThumbY > -8192)
+                    MousePosDifference[1] += 10;
+                if (rightThumbY <= -8192 && rightThumbY > -16384)
+                    MousePosDifference[1] += 20;
+                if (rightThumbY <= -16384 && rightThumbY > -24576)
+                    MousePosDifference[1] += 35;
+                if (rightThumbY <= -24576 && rightThumbY >= -32768)
+                    MousePosDifference[1] += 50;
+            }
 
             CharacterPosAdres = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesMainAdress, CharacterPosMainAdres, CharacterPosOffset);
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)CharacterPosAdres, &CharacterPos[0], sizeof(float), 0);
@@ -121,17 +212,16 @@ DWORD WINAPI MainCore(HMODULE hModule) {
 
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x00A60C40, &CameraRotation[0], sizeof(short int), 0);
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x00A60C3C, &CameraRotation[1], sizeof(short int), 0);
-
-            CameraFreeze = 0;
         }
 
         // Stage and Window OFF
-        else {
-            CameraFreeze = 1;
-        }
-
-        if (GetAsyncKeyState(OnOffKey) & 1)
+        if (GetAsyncKeyState(OnOffKey) & 1) {
             OnOff = !OnOff;
+            if (OnOff)
+                OldHexValues = AssemblyNopConverter(HandleSonicHeroes, Addresses, OldHexValues);
+            if (!OnOff)
+                AssemblyNopRepair(HandleSonicHeroes, Addresses, OldHexValues);
+        }
 
         if (GetAsyncKeyState(ForceCloseKey) & 1)
             break;
@@ -152,7 +242,7 @@ DWORD WINAPI MainCore(HMODULE hModule) {
             Radius = 90.0f;
 
         // Controls
-        Sleep(10);
+        Sleep(16);
         ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x007C6BD4, &StageOpen, sizeof(bool), 0);
         ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x008D6708, &GamePause, sizeof(bool), 0);
         hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)");

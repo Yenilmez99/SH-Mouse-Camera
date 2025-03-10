@@ -15,7 +15,10 @@
 #include <vector>
 #include <stdlib.h>
 #include <math.h>
+#include <Xinput.h>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 
 #endif //PCH_H
