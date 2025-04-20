@@ -1,28 +1,51 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sonic Heroes Mouse Camera", "Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera.vcxproj", "{136E761D-B356-433D-8B26-DCA8072BEA95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonic Heroes MouseCam Config", "Sonic Heroes MouseCam Config\Sonic Heroes MouseCam Config.csproj", "{2A080B4F-665C-456C-8321-CEBF22739BD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|Any CPU.Build.0 = Debug|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|x64.ActiveCfg = Debug|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|x64.Build.0 = Debug|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|x86.ActiveCfg = Debug|Win32
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Debug|x86.Build.0 = Debug|Win32
+		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|Any CPU.ActiveCfg = Release|x64
+		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|Any CPU.Build.0 = Release|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|x64.ActiveCfg = Release|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|x64.Build.0 = Release|x64
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|x86.ActiveCfg = Release|Win32
 		{136E761D-B356-433D-8B26-DCA8072BEA95}.Release|x86.Build.0 = Release|Win32
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|x64.Build.0 = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Debug|x86.Build.0 = Debug|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|x64.ActiveCfg = Release|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|x64.Build.0 = Release|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A080B4F-665C-456C-8321-CEBF22739BD3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA6EA6FE-6B31-4837-94C2-B144419C7D8C}
 	EndGlobalSection
 EndGlobal

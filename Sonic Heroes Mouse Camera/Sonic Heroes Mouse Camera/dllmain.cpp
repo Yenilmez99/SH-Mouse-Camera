@@ -63,6 +63,22 @@ void AssemblyNopRepair(HANDLE HandleH, std::vector<int> Vectors, std::vector<uin
     }
 }
 
+std::string GetDllPath(std::string DLLName) {
+    HMODULE hModule = NULL;
+    char path[MAX_PATH];
+    std::string DLLPath = "";
+    LPCSTR DLLNameLPCSTR = DLLName.c_str();
+
+    GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_PIN, DLLNameLPCSTR, &hModule);
+    GetModuleFileNameA(hModule, path, MAX_PATH);
+    DLLPath = path;
+
+    if (DLLPath.find_last_of("\\/") != std::string::npos)
+        DLLPath = DLLPath.substr(0, DLLPath.find_last_of("\\/"));
+
+    return DLLPath;
+}
+
 DWORD WINAPI MainCore(HMODULE hModule) {
 
     bool StageOpen = 1, OnOff = 1, GamePause = 0;
@@ -108,26 +124,20 @@ DWORD WINAPI MainCore(HMODULE hModule) {
 
     SetCursorPos(800, 600);
 
-    std::ifstream File("Y99 Mods Config File.txt");
-    std::string Line;
+    std::ifstream File(GetDllPath("Sonic Heroes Mouse Camera.dll") + "\\..\\..\\User\\Mods\\sonicheroes.devicemod.mousecam\\Config.json");
     float Sensivity = 10.0f;
     if (!File.is_open())
         Sensivity = 10.0f;
-    else {
-        for (int i = 0; i < 7; i++) {
-            std::getline(File, Line);
-            if (i == 6) {
-                std::stringstream ss(Line);
-                std::string Key;
-                ss >> Key >> Sensivity;
-            }
-        }
-        if (Sensivity <= 1000.0f && Sensivity > 0.0f) {
 
-        }
-        else
-            Sensivity = 10.0f;
-    }
+    nlohmann::json ConfigData;
+    File >> ConfigData;
+
+    Sensivity = ConfigData["Sensivity"];
+
+    if (Sensivity <= 1000.0f && Sensivity > 0.0f);
+    else
+        Sensivity = 10.0f;
+
     File.close();
 
     // Camera Freeze

@@ -8,33 +8,34 @@ D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse 
 D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(61,25): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(146,73): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(156,73): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(149,47): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(159,47): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(152,48): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(162,48): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(202,49): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(212,49): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(203,56): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(213,56): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(204,49): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(214,49): warning C4244: '=': 'double' - 'float' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(206,68): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(216,68): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(207,44): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Sonic Heroes Mouse Camera\dllmain.cpp(217,44): warning C4244: '=': 'float' - 'short' dönüşümü; veri kaybı olabilir
   ('/dllmain.cpp' kaynak dosyası derleniyor)
   
+D:\Visual Studio\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1395,5): warning MSB8012: TargetPath(D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Release\Sonic Heroes Mouse Camera.dll), Linker OutputFile özellik değeriyle (D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\sonicheroes.devicemod.mousecam\Sonic Heroes Mouse Camera.dll) eşleşmiyor. Bu, projenin yanlış oluşturulmasına neden olabilir. Bunu düzeltmek için, $(OutDir), $(TargetName) ve $(TargetExt) özellik değerlerinin %(Link.OutputFile) içinde belirtilen değerle eşleştiğinden emin olun.
   Kod üretiliyor
-  1 of 376 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  1 of 1432 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Kodun üretilmesi tamamlandı
   Sonic Heroes Mouse Camera.vcxproj -> D:\Projeler\Visual Studio Projeler\Sonic Heroes Mouse Camera\Release\Sonic Heroes Mouse Camera.dll
