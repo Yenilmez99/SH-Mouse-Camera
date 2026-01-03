@@ -1,0 +1,28 @@
+{
+  "ModId": "Mouse_Camera_Config",
+  "ModName": "Sonic Heroes Mouse Camera",
+  "ModAuthor": "Yenilmez99",
+  "ModVersion": "2.0.0",
+  "ModDescription": "Mouse Camera for Sonic Heroes",
+  "ModDll": "Mouse Camera Config.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/Mouse Camera Config.dll",
+  "ModR2RManagedDll64": "x64/Mouse Camera Config.dll",
+  "ModNativeDll32": "Sonic Heroes Mouse Camera.dll",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "Mouse_Camera_Config.ReleaseMetadata.json",
+  "PluginData": {
+    "GameBanana": {
+      "ItemType": "Mod",
+      "ItemId": 540253
+    }
+  },
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [
+    "tsonic_win.exe"
+  ],
+  "ProjectUrl": ""
+}

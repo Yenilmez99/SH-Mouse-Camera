@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "78UpeM39uwg=",
+  "success": true,
+  "projectFilePath": "D:\\Test Dosyalari\\kod\\Sonic Heroes Mouse Camera\\Mouse Camera Config\\Mouse Camera Config.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yenil\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.3\\microsoft.net.illink.tasks.9.0.3.nupkg.sha512",
+    "C:\\Users\\yenil\\.nuget\\packages\\reloaded.hooks.definitions\\1.11.0\\reloaded.hooks.definitions.1.11.0.nupkg.sha512",
+    "C:\\Users\\yenil\\.nuget\\packages\\reloaded.mod.interfaces\\2.4.0\\reloaded.mod.interfaces.2.4.0.nupkg.sha512",
+    "C:\\Users\\yenil\\.nuget\\packages\\reloaded.sharedlib.hooks\\1.9.0\\reloaded.sharedlib.hooks.1.9.0.nupkg.sha512"
+  ],
+  "logs": []
+}

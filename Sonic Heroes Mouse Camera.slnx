@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Mouse Camera Config/Mouse Camera Config.csproj" Id="41fbce3d-7ffa-4b8e-a2ed-03afcb42db42" />
+  <Project Path="Sonic Heroes Mouse Camera/Sonic Heroes Mouse Camera.vcxproj" Id="11a64bee-2d9c-4108-be4d-f1518f1ad822" />
+</Solution>

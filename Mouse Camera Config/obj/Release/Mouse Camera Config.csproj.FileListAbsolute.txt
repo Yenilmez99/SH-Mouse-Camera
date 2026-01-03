@@ -1,0 +1,15 @@
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Output\Preview.png
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Output\ModConfig.json
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Output\Mouse Camera Config.deps.json
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Output\Mouse Camera Config.dll
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Output\Mouse Camera Config.pdb
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.csproj.AssemblyReference.cache
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.AssemblyInfoInputs.cache
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.AssemblyInfo.cs
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.csproj.CoreCompileInputs.cache
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Ca.20FED6FB.Up2Date
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.dll
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\refint\Mouse Camera Config.dll
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\Mouse Camera Config.pdb
+D:\Test Dosyalari\kod\Sonic Heroes Mouse Camera\Mouse Camera Config\obj\Release\ref\Mouse Camera Config.dll
