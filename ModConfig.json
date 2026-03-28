@@ -1,0 +1,28 @@
+{
+  "ModId": "sonicheroes.devicemod.mousecam",
+  "ModName": "Mouse Camera",
+  "ModAuthor": "Yenilmez99",
+  "ModVersion": "2.0.1",
+  "ModDescription": "Adds a Better Camera feature to the Sonic Heroes game.",
+  "ModDll": "SH-Mouse-Camera.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/SH-Mouse-Camera.dll",
+  "ModR2RManagedDll64": "x64/SH-Mouse-Camera.dll",
+  "ModNativeDll32": "SHMouseCamera.dll",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "SH_Mouse_Camera.ReleaseMetadata.json",
+  "PluginData": {
+    "GameBanana": {
+      "ItemType": "Mod",
+      "ItemId": 540253
+    }
+  },
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [
+    "tsonic_win.exe"
+  ],
+  "ProjectUrl": ""
+}
