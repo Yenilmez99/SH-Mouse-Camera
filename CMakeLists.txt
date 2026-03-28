@@ -28,6 +28,16 @@ FetchContent_MakeAvailable(minhook)
 set(SOURCE_FILES "src/main.cpp")
 set(OUTPUT_FOLDER "../sonicheroes.devicemod.mousecam")
 
+if(NOT CMAKE_BUILD_TYPE)
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose Release or Debug" FORCE)
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
+add_compile_options(-O3 -flto)
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -flto")
+endif()
+
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
