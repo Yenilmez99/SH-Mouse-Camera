@@ -2,7 +2,7 @@
   "ModId": "sonicheroes.devicemod.mousecam",
   "ModName": "Mouse Camera",
   "ModAuthor": "Yenilmez99",
-  "ModVersion": "2.0.1",
+  "ModVersion": "2.0.2",
   "ModDescription": "Adds a Better Camera feature to the Sonic Heroes game.",
   "ModDll": "SH-Mouse-Camera.dll",
   "ModIcon": "Preview.png",

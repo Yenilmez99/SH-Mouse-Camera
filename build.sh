@@ -4,7 +4,7 @@ set -e
 BUILD_TYPE=${1:-Release}
 
 echo "== C++ DLL is being compiled ($BUILD_TYPE) =="
-cmake -B build -DCMAKE_TOOLCHAIN_FILE=mingw32-toolchain.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=mingw32-toolchain.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DFETCHCONTENT_QUIET=OFF
 
 cmake --build build
 echo "== C++ DLL was compiled =="

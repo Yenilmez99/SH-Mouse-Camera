@@ -1,12 +1,15 @@
+#define _USE_MATH_DEFINES
+
 #include <windows.h>
 #include <MinHook.h>
 #include <nlohmann/json.hpp>
+
+#include <cstdint>
 #include <cmath>
 #include <fstream>
 #include <filesystem>
 
-#include "BasicCamera.h"
-#include "BasicCharacter.h"
+#include "BasicEntity.h"
 #include "BasicInput.h"
 
 // There are these for hide cursor
@@ -25,41 +28,46 @@ int WINAPI DetourShowCursor(BOOL bShow) {return fpShowCursor(FALSE);
 
 // Orginal Camera Function
 typedef void(__cdecl* OrginalUpdateCamera)();
-OrginalUpdateCamera fpCameraUpdate = NULL;
+OrginalUpdateCamera fpCameraUpdate = nullptr;
 
-int64_t TotalInputX = 0, TotalInputY = 0;
-uint32_t CharacterPtr = 0x009CE820;
-volatile float Sensitivity = 10.0f;
-volatile float Radius = 70.0f;
+// Helpers
+uintptr_t SonicHeroesBaseAddress = 0x400000;    volatile uintptr_t* RolePtr = nullptr;
+volatile uintptr_t* CharacterPtr = nullptr;     volatile uint8_t* GameState = nullptr;
+volatile float Sensitivity = 10.0f;             volatile float Radius = 70.0f;
+int64_t TotalInputX = 0,                        TotalInputY = 0;
+
+// Variables
+volatile BasicEntity* Camera = nullptr;     volatile BasicEntity* Character = nullptr;
+volatile BasicInput* MouseInput = nullptr;  volatile BasicInput* ControllerInput = nullptr;
+volatile uint8_t* CameraState = nullptr;    volatile uint8_t* Role = nullptr;
+volatile uint8_t useRole = 0;
 // Hook Camera Function
 void __cdecl HookUpdateCamera() {
-
-    if (*reinterpret_cast<volatile void**>(CharacterPtr) == nullptr) return;
-
-    volatile uint8_t* GameState = reinterpret_cast<volatile uint8_t*>(0x008D66F0);
-    if (*GameState != 5) {
-        Sleep(10);
-        return;
-    }
-
-    volatile BasicInput* MouseInput = reinterpret_cast<volatile BasicInput*>(0x00A2F930);
-    volatile BasicInput* ControllerInput = reinterpret_cast<volatile BasicInput*>(0x00A2FB14);
+    if (*CharacterPtr == 0x0 || *CameraState == 13 || *CameraState == 14) return fpCameraUpdate();
+    if (*GameState != 4 && *GameState != 5) return fpCameraUpdate();
+    Role = reinterpret_cast<volatile uint8_t*>(*RolePtr + 0x3B);
+    useRole = *Role;
+    if (*Role > 2) useRole = 0;
+    Character = reinterpret_cast<volatile BasicEntity*>(CharacterPtr[useRole] + 0x114);
 
     TotalInputX += MouseInput->InputX + ControllerInput->InputX;
     TotalInputY += MouseInput->InputY + ControllerInput->InputY;
 
-    if (TotalInputY * Sensitivity < -16384) TotalInputY = -16384 / Sensitivity;
-    if (TotalInputY * Sensitivity > 16384) TotalInputY = 16384 / Sensitivity;
+    int64_t MaxY = static_cast<int64_t>(16384.0f / Sensitivity);
 
-    volatile BasicCharacter* myCharacter = reinterpret_cast<volatile BasicCharacter*>(*reinterpret_cast<volatile uint32_t*>(CharacterPtr) + 0xE8);
-    volatile BasicCamera* myCamera = reinterpret_cast<volatile BasicCamera*>(0x00A60C30);
+    if (TotalInputY < -MaxY) TotalInputY = -MaxY;
+    if (TotalInputY > MaxY) TotalInputY = MaxY;
 
-    myCamera->PosX = myCharacter->PosX + Radius * cosf(TotalInputX * Sensitivity * M_PI / 32768) * cosf(TotalInputY * Sensitivity * M_PI / 32768);
-    myCamera->PosY = 8.5f + myCharacter->PosY + Radius * sinf(TotalInputY * Sensitivity * M_PI / 32768);
-    myCamera->PosZ = myCharacter->PosZ + Radius * sinf(TotalInputX * Sensitivity * M_PI / 32768) * cosf(TotalInputY * Sensitivity * M_PI / 32768);
+    float OptX = TotalInputX * Sensitivity, OptY = TotalInputY * Sensitivity;
+    const float RAD_MULT = static_cast<float>(M_PI / 32768.0f);
+    float RadX = OptX * RAD_MULT,           RadY = OptY * RAD_MULT;
 
-    myCamera->Pitch = - TotalInputY * Sensitivity;
-    myCamera->Yaw = - TotalInputX * Sensitivity + 16384;
+    Camera->PosX = Character->PosX + Radius * cosf(RadX) * cosf(RadY);
+    Camera->PosY = 8.5f + Character->PosY + Radius * sinf(RadY);
+    Camera->PosZ = Character->PosZ + Radius * sinf(RadX) * cosf(RadY);
+
+    Camera->Pitch = - OptY;
+    Camera->Yaw = static_cast<int32_t>(-OptX) + 16384;
 
     return;
 }
@@ -90,29 +98,37 @@ DWORD WINAPI MainCore(LPVOID lpParam) {
         ConfigFile.close();
     }
 
-    if (MH_Initialize() != MH_OK) {
-        FreeLibraryAndExitThread(myHModule, 0);
+    MH_STATUS mhStatus = MH_Initialize();
+    if (mhStatus != MH_STATUS::MH_OK && mhStatus != MH_STATUS::MH_ERROR_ALREADY_INITIALIZED) {
         return 1;
     }
+
+    SonicHeroesBaseAddress = reinterpret_cast<uintptr_t>(GetModuleHandle(NULL));
+    RolePtr = reinterpret_cast<volatile uintptr_t*>(0x0064C268 + SonicHeroesBaseAddress);
+    CharacterPtr = reinterpret_cast<volatile uintptr_t*>(0x0064B1B0 + SonicHeroesBaseAddress);
+    GameState = reinterpret_cast<volatile uint8_t*>(0x004D66F0 + SonicHeroesBaseAddress);
+
+    Camera = reinterpret_cast<volatile BasicEntity*>(0x00660C30 + SonicHeroesBaseAddress);
+    CameraState = reinterpret_cast<volatile uint8_t*>(0x00660C7C + SonicHeroesBaseAddress);
+    MouseInput = reinterpret_cast<volatile BasicInput*>(0x0062F930 + SonicHeroesBaseAddress);
+    ControllerInput = reinterpret_cast<volatile BasicInput*>(0x0062FB14 + SonicHeroesBaseAddress);
 
     // Create Hook to SetCursor and ShowCursor Function
     MH_CreateHook(reinterpret_cast<LPVOID>(&SetCursor), reinterpret_cast<LPVOID>(&DetourSetCursor), reinterpret_cast<LPVOID*>(&fpSetCursor));
     MH_CreateHook(reinterpret_cast<LPVOID>(&ShowCursor), reinterpret_cast<LPVOID>(&DetourShowCursor), reinterpret_cast<LPVOID*>(&fpShowCursor));
-    MH_CreateHook(reinterpret_cast<LPVOID>(0x006207A0), reinterpret_cast<LPVOID*>(HookUpdateCamera), reinterpret_cast<LPVOID*>(&fpCameraUpdate));
+    MH_CreateHook(reinterpret_cast<LPVOID>(0x002207A0 + SonicHeroesBaseAddress), reinterpret_cast<LPVOID>(&HookUpdateCamera), reinterpret_cast<LPVOID*>(&fpCameraUpdate));
 
     // Do Active to Hooks
-    bool HasAnyError = false;
-    if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK) HasAnyError = true;
+    MH_EnableHook(MH_ALL_HOOKS);
 
     // Stuck Loop
-    while (!HasAnyError && !(GetAsyncKeyState(VK_F1)&0x1)) {
+    while (!(GetAsyncKeyState(VK_F1)&0x1)) {
         Sleep(100);
     }
 
     MH_DisableHook(MH_ALL_HOOKS);
     MH_Uninitialize();
     
-    FreeLibraryAndExitThread(myHModule, 0);
     return 0;
 }
 BOOL APIENTRY DllMain( HMODULE hModule,
