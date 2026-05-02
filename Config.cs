@@ -18,6 +18,11 @@ public class Config : Configurable<Config>
         [Description("Radius which between camera and character")]
         [DefaultValue(70.0f)]
         public float Radius { get; set; } = 70.0f;
+
+        [DisplayName("Cursor Locking")]
+        [Description("Cursor is locked at a resolution of 400x300")]
+        [DefaultValue(false)]
+        public bool CursorLock { get; set; } = false;
 }
 
 /// <summary>

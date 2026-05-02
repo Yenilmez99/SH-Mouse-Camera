@@ -1,3 +1,4 @@
+#include <synchapi.h>
 #define _USE_MATH_DEFINES
 
 #include <windows.h>
@@ -33,21 +34,21 @@ OrginalUpdateCamera fpCameraUpdate = nullptr;
 // Helpers
 uintptr_t SonicHeroesBaseAddress = 0x400000;    volatile uintptr_t* RolePtr = nullptr;
 volatile uintptr_t* CharacterPtr = nullptr;     volatile uint8_t* GameState = nullptr;
-volatile float Sensitivity = 10.0f;             volatile float Radius = 70.0f;
+float Sensitivity = 10.0f,                      Radius = 70.0f;
 int64_t TotalInputX = 0,                        TotalInputY = 0;
+bool CursorLock = 0;
 
 // Variables
 volatile BasicEntity* Camera = nullptr;     volatile BasicEntity* Character = nullptr;
 volatile BasicInput* MouseInput = nullptr;  volatile BasicInput* ControllerInput = nullptr;
-volatile uint8_t* CameraState = nullptr;    volatile uint8_t* Role = nullptr;
-volatile uint8_t useRole = 0;
+volatile uint8_t* Role = nullptr;           volatile uint8_t useRole = 0;
 // Hook Camera Function
 void __cdecl HookUpdateCamera() {
-    if (*CharacterPtr == 0x0 || *CameraState == 13 || *CameraState == 14) return fpCameraUpdate();
     if (*GameState != 4 && *GameState != 5) return fpCameraUpdate();
+
     Role = reinterpret_cast<volatile uint8_t*>(*RolePtr + 0x3B);
-    useRole = *Role;
-    if (*Role > 2) useRole = 0;
+
+    useRole = (*Role > 2) ? 0 : *Role;
     Character = reinterpret_cast<volatile BasicEntity*>(CharacterPtr[useRole] + 0x114);
 
     TotalInputX += MouseInput->InputX + ControllerInput->InputX;
@@ -66,7 +67,7 @@ void __cdecl HookUpdateCamera() {
     Camera->PosY = 8.5f + Character->PosY + Radius * sinf(RadY);
     Camera->PosZ = Character->PosZ + Radius * sinf(RadX) * cosf(RadY);
 
-    Camera->Pitch = - OptY;
+    Camera->Pitch = static_cast<int16_t>(- OptY);
     Camera->Yaw = static_cast<int32_t>(-OptX) + 16384;
 
     return;
@@ -87,6 +88,7 @@ DWORD WINAPI MainCore(LPVOID lpParam) {
 
             Sensitivity = ConfigData.value("Sensitivity", 10.0f);
             Radius = ConfigData.value("Radius", 70.0f);
+            CursorLock = ConfigData.value("CursorLock", false);
 
             if (Sensitivity < 0.01f) Sensitivity = 0.01f;
             if (Radius < 10.0f) Radius = 70.0f;
@@ -109,7 +111,6 @@ DWORD WINAPI MainCore(LPVOID lpParam) {
     GameState = reinterpret_cast<volatile uint8_t*>(0x004D66F0 + SonicHeroesBaseAddress);
 
     Camera = reinterpret_cast<volatile BasicEntity*>(0x00660C30 + SonicHeroesBaseAddress);
-    CameraState = reinterpret_cast<volatile uint8_t*>(0x00660C7C + SonicHeroesBaseAddress);
     MouseInput = reinterpret_cast<volatile BasicInput*>(0x0062F930 + SonicHeroesBaseAddress);
     ControllerInput = reinterpret_cast<volatile BasicInput*>(0x0062FB14 + SonicHeroesBaseAddress);
 
@@ -123,7 +124,11 @@ DWORD WINAPI MainCore(LPVOID lpParam) {
 
     // Stuck Loop
     while (!(GetAsyncKeyState(VK_F1)&0x1)) {
-        Sleep(100);
+        if (CursorLock) {
+            if (*GameState == 4 || *GameState == 5) SetCursorPos(400, 300);
+            Sleep(16);
+        }
+        else Sleep(100);
     }
 
     MH_DisableHook(MH_ALL_HOOKS);
