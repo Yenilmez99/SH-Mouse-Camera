@@ -36,7 +36,7 @@ uintptr_t SonicHeroesBaseAddress = 0x400000;    volatile uintptr_t* RolePtr = nu
 volatile uintptr_t* CharacterPtr = nullptr;     volatile uint8_t* GameState = nullptr;
 float Sensitivity = 10.0f,                      Radius = 70.0f;
 int64_t TotalInputX = 0,                        TotalInputY = 0;
-bool CursorLock = 0;
+bool CursorLock = 0,                            TurnOrginalCamera = 0;
 
 // Variables
 volatile BasicEntity* Camera = nullptr;     volatile BasicEntity* Character = nullptr;
@@ -44,6 +44,7 @@ volatile BasicInput* MouseInput = nullptr;  volatile BasicInput* ControllerInput
 volatile uint8_t* Role = nullptr;           volatile uint8_t useRole = 0;
 // Hook Camera Function
 void __cdecl HookUpdateCamera() {
+    if (TurnOrginalCamera) return fpCameraUpdate();
     if (*GameState != 4 && *GameState != 5) return fpCameraUpdate();
 
     Role = reinterpret_cast<volatile uint8_t*>(*RolePtr + 0x3B);
@@ -124,6 +125,7 @@ DWORD WINAPI MainCore(LPVOID lpParam) {
 
     // Stuck Loop
     while (!(GetAsyncKeyState(VK_F1)&0x1)) {
+        if (GetAsyncKeyState('N') & 0x1) TurnOrginalCamera = !TurnOrginalCamera;
         if (CursorLock) {
             if (*GameState == 4 || *GameState == 5) SetCursorPos(400, 300);
             Sleep(16);
