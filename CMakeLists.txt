@@ -1,56 +1,33 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.20)
 
-project("SH-Mouse-Camera" C CXX)
-set(CMAKE_CXX_STANDARD 17)
+project(SH_mousecam_workspace VERSION 3.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
-FetchContent_Declare(
-  json
-  URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
-)
-set(JSON_BuildTests OFF CACHE INTERNAL "")
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
 FetchContent_Declare(
-  minhook
-  GIT_REPOSITORY https://github.com/tsudakageyu/minhook.git
-  GIT_TAG        v1.3.4
-  GIT_SHALLOW    TRUE
-)
-set(BUILD_SHARED_LIBS OFF
-CACHE INTERNAL "Minhook will be compiled staticly"
+    minhook
+    GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
+    GIT_TAG v1.3.4
+    GIT_SHALLOW TRUE
 )
 FetchContent_MakeAvailable(minhook)
 
-set(SOURCE_FILES "src/main.cpp")
-set(OUTPUT_FOLDER "../sonicheroes.devicemod.mousecam")
-
-if(NOT CMAKE_BUILD_TYPE)
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose Release or Debug" FORCE)
-endif()
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
-add_compile_options(-O3 -flto)
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -flto")
-endif()
-
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    PREFIX ""
-    OUTPUT_NAME "SHMouseCamera"
-    LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_FOLDER}"
-    RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_FOLDER}"
+add_library(SH_mousecam SHARED src/dllmain.cpp)
+set_target_properties(SH_mousecam PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../sonicheroes.devicemod.mousecam"
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(${PROJECT_NAME} PRIVATE minhook)
+target_link_libraries(SH_mousecam PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(SH_mousecam PRIVATE minhook)
 
-if(MINGW)
-target_link_options(${PROJECT_NAME} PRIVATE "-static-libgcc" "-static-libstdc++" "-static")
-endif()
+set_target_properties(SH_mousecam PROPERTIES OUTPUT_NAME "SH_mousecam")
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories(SH_mousecam PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+)
